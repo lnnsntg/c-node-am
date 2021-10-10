@@ -1,8 +1,31 @@
 const fs = require("fs");
 
+//-----------------------------------------------------------------------
+
 const getNotes = function () {
   return "Your notes...";
 };
+
+//-----------------------------------------------------------------------
+
+const saveNotes = function (notes) {
+  const dataJSON = JSON.stringify(notes);
+  fs.writeFileSync("notes.json", dataJSON);
+};
+
+//-----------------------------------------------------------------------
+
+const loadNotes = function () {
+  try {
+    const dataBuffer = fs.readFileSync("notes.json");
+    const dataJSON = dataBuffer.toString();
+    return JSON.parse(dataJSON);
+  } catch (e) {
+    return [];
+  }
+};
+
+//-----------------------------------------------------------------------
 
 const addNote = function (title, body) {
   const notes = loadNotes();
@@ -22,31 +45,22 @@ const addNote = function (title, body) {
   }
 };
 
-const saveNotes = function (notes) {
-  const dataJSON = JSON.stringify(notes);
-  fs.writeFileSync("notes.json", dataJSON);
-};
-
-const loadNotes = function () {
-  try {
-    const dataBuffer = fs.readFileSync("notes.json");
-    const dataJSON = dataBuffer.toString();
-    return JSON.parse(dataJSON);
-  } catch (e) {
-    return [];
-  }
-};
 //-----------------------------------------------------------------------
 
 const removeNote = function (title) {
   const notes = loadNotes();
+
   const notesToKeep = notes.filter(function (note) {
     return note.title !== title;
   });
-  console.log(notesToKeep);
-  saveNotes(notesToKeep);
-  console.log("Note removed!");
+  if (notes.length > notesToKeep.length) {
+    console.log("Found a match, deleting ...");
+    saveNotes(notesToKeep);
+  } else {
+    console.log("No matches found");
+  }
 };
+
 //-----------------------------------------------------------------------
 
 module.exports = {

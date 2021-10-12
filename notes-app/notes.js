@@ -1,11 +1,9 @@
-const { default: chalk } = require("chalk");
+const chalk = require("chalk");
 const fs = require("fs");
 
 //-----------------------------------------------------------------------
 
-const getNotes = function () {
-  return "Your notes...";
-};
+const getNotes = () => "Your notes...";
 
 //-----------------------------------------------------------------------
 
@@ -16,7 +14,7 @@ const saveNotes = function (notes) {
 
 //-----------------------------------------------------------------------
 
-const loadNotes = function () {
+function loadNotes() {
   try {
     const dataBuffer = fs.readFileSync("notes.json");
     const dataJSON = dataBuffer.toString();
@@ -24,7 +22,7 @@ const loadNotes = function () {
   } catch (e) {
     return [];
   }
-};
+}
 
 //-----------------------------------------------------------------------
 

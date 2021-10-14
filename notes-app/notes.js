@@ -62,25 +62,27 @@ const removeNote = function (title) {
 
 //-----------------------------------------------------------------------
 
-const listNotes = function(){
+const listNotes = function () {
   const notes = loadNotes();
-  console.log(chalk.green('Your notes')); 
-  console.log(chalk.blue('================='));
-  notes.filter(function(note){
-    
-    console.log('TITLE: ',note.title);
-    console.log(note.body);
-    console.log(chalk.grey('================'))
+  if (notes.length === 0) {
+    console.log("You don't have any notes");
+  } else {
+    console.log(chalk.green("Your notes"));
+    console.log(chalk.blue("================="));
 
-
-  })
-  
-}
+    notes.filter(function (note) {
+      console.log("Title: ", note.title);
+      console.log(note.body);
+      console.log(chalk.grey("================"));
+    });
+  }
+};
 
 //-----------------------------------------------------------------------
+
 module.exports = {
   getNotes: getNotes,
   addNote: addNote,
   removeNote: removeNote,
-  listNotes: listNotes
+  listNotes: listNotes,
 };

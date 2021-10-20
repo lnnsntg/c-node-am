@@ -28,9 +28,10 @@ function loadNotes() {
 
 const addNote = function (title, body) {
   const notes = loadNotes();
+  console.log(notes);
   const duplicateNote = notes.find((note) => note.title === title);
+  console.log(Boolean(duplicateNote)); 
 
-  debugger
 
   console.log("log de duplicateNote: ", duplicateNote);
 

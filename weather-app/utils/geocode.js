@@ -9,9 +9,9 @@ const geocode = (address) => {
     request({ url: urlMapbox, json: true }, (error, response) => {
         if (error) {
             callback('Unable to connect to location services!', undefined)
-        } 
+        }
         else if (response.body.features.length == 0) {
-            callback('Data could not be retrieved for this location. Try another search', undefined)
+            callback('Data could not be retrieved for this location. Try another search for geocode', undefined)
         }
         else {
             const data = response.body.features[0];
@@ -23,7 +23,7 @@ const geocode = (address) => {
 const callback = (error, data) => {
     if (error) {
         console.log(error);
-    } 
+    }
     else {
         const place = data.place_name;
         const dataMapLat = data.center[1];
@@ -34,6 +34,4 @@ const callback = (error, data) => {
     }
 };
 
-module.exports = {
-    geocode
-};
+module.exports = geocode;

@@ -24,7 +24,7 @@ function forecast(address) {
             console.log(error);
         } else {
             const {name, country, region} = data.location
-            console.log(`Localidad para las coordenas recibidas: ${name}, ${region}, ${country} `);
+            console.log(`Localidad para las coordenadas recibidas: ${name}, ${region}, ${country} `);
             console.log(`Tiempo descripción: ${ data.current.weather_descriptions[0] }`);
             console.log(
                 `Temperatura actual: ${ data.current.temperature }º grados centígrados`

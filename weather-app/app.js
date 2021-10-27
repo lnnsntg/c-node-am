@@ -1,13 +1,5 @@
-const geocode = require('./utils/geocode');
-const forecast = require('./utils/forecast')
+const geocode = require("./utils/geocode");
+const address = process.argv[2] || "Islandia"
 
 
-function both(address) {
-  forecast(address)
-  geocode(address);
-}
-
-
-
-both("madridaljpfhaphfphpfg")
-
+geocode(address)

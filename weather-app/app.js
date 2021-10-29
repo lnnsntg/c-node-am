@@ -1,5 +1,5 @@
 const geocode = require("./utils/geocode");
-const address = process.argv[2] || "Islandia"
+const address = process.argv[2] || "Iceland"
 
 
 geocode(address)

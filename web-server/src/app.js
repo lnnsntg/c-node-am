@@ -41,20 +41,33 @@ app.get("/help", (req, res) => {
   res.render("help", {
     title: "HELP",
     helpText: "Aqui va el texto del parrafó de ayuda",
+    name: "Lenin Santiago"
   });
 });
 
 //------------------------------------------------------------------------
 
-app.get("/help", (req, res) => {
-  res.render("help", {
-    title: "HELP",
-    helpText: "Aqui va el texto del parrafó de ayuda",
+app.get("/help/*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    message: "Help article not found",
+    name: "Lenin Santiago"
   });
 });
 
 //------------------------------------------------------------------------
 
+app.get("*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    message: "Page not found",
+    name: "Lenin Santiago"
+  });
+});
+
+//------------------------------------------------------------------------
+
+/* 
 app.get("/weather", (req, res) => {
   res.send([
     {
@@ -65,7 +78,7 @@ app.get("/weather", (req, res) => {
     },
   ]);
 });
-
+ */
 app.listen(port || 3000, () => {
   console.log(`Server running! at port ${ port }`);
 });

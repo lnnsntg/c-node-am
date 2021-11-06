@@ -1,10 +1,10 @@
 const path = require("path");
 const express = require("express");
-const hbs = require("hbs")
+const hbs = require("hbs");
 const app = express();
-const port = 3000;
+const PORT = 3000;
 
-//Define paht for Express config
+//Define path for Express config
 const publicDirectoryPaht = path.join(__dirname, "../public");
 const viewsPath = path.join(__dirname, "../templates/views");
 const partialsPath = path.join(__dirname, "../templates/partials");
@@ -16,6 +16,36 @@ hbs.registerPartials(partialsPath);
 
 //Setup static directory to serve
 app.use(express.static(publicDirectoryPaht));
+
+//------------------------------------------------------------------------
+
+app.get("/weather", (req, res) => {
+  res.send([
+    {
+      name: "Philadephia",
+    },
+    {
+      country: "United States",
+    },
+  ]);
+});
+
+//------------------------------------------------------------------------
+
+app.get("/products", (req, res) => {
+  if (!req.query.search){
+
+    res.send({
+      error: "You must provide a search term",
+    });
+  } else {
+    console.log(req.query.search);
+    res.send({
+      products: []
+
+    })
+  }
+});
 
 //------------------------------------------------------------------------
 
@@ -41,7 +71,7 @@ app.get("/help", (req, res) => {
   res.render("help", {
     title: "HELP",
     helpText: "Aqui va el texto del parrafó de ayuda",
-    name: "Lenin Santiago"
+    name: "Lenin Santiago",
   });
 });
 
@@ -51,7 +81,7 @@ app.get("/help/*", (req, res) => {
   res.render("404", {
     title: "404",
     message: "Help article not found",
-    name: "Lenin Santiago"
+    name: "Lenin Santiago",
   });
 });
 
@@ -61,24 +91,12 @@ app.get("*", (req, res) => {
   res.render("404", {
     title: "404",
     message: "Page not found",
-    name: "Lenin Santiago"
+    name: "Lenin Santiago",
   });
 });
 
 //------------------------------------------------------------------------
 
-/* 
-app.get("/weather", (req, res) => {
-  res.send([
-    {
-      name: "Philadephia",
-    },
-    {
-      country: "United States",
-    },
-  ]);
-});
- */
-app.listen(port || 3000, () => {
-  console.log(`Server running! at port ${ port }`);
+app.listen(PORT || 3000, () => {
+  console.log(`Server running! at port ${ PORT }`);
 });

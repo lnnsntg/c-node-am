@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
+const { runInNewContext } = require("vm");
 const app = express();
 const PORT = 3000;
 
@@ -20,30 +21,29 @@ app.use(express.static(publicDirectoryPaht));
 //------------------------------------------------------------------------
 
 app.get("/weather", (req, res) => {
-  res.send([
-    {
-      name: "Philadephia",
-    },
-    {
-      country: "United States",
-    },
-  ]);
+  if (!req.query.address) {
+    return res.send({
+      Please: "You most provide an address",
+    });
+  } else {
+    res.send({
+      address: req.query.address,
+    });
+  }
 });
 
 //------------------------------------------------------------------------
 
 app.get("/products", (req, res) => {
-  if (!req.query.search){
-
+  if (!req.query.search) {
     res.send({
       error: "You must provide a search term",
     });
   } else {
     console.log(req.query.search);
     res.send({
-      products: []
-
-    })
+      products: [],
+    });
   }
 });
 

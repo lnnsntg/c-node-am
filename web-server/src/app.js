@@ -1,9 +1,13 @@
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
-const { runInNewContext } = require("vm");
 const app = express();
-const PORT = 3000;
+const geocode = require("./utils/geocode.js");
+const forecast = require("./utils/forecast");
+
+// server.js
+const dotenv = require("dotenv");
+dotenv.config();
 
 //Define path for Express config
 const publicDirectoryPaht = path.join(__dirname, "../public");
@@ -25,11 +29,42 @@ app.get("/weather", (req, res) => {
     return res.send({
       Please: "You most provide an address",
     });
-  } else {
-    res.send({
-      address: req.query.address,
-    });
   }
+  geocode(req.query.address, (error, data) => {
+    if (error) {
+      return res.send({ error });
+    } else {
+      const localidad = data.place_name;
+      const latitud = data.center[1];
+      const longitud = data.center[0];
+      const ad = `${latitud}, ${longitud}`;
+
+      forecast(ad, (error, data) => {
+        if (error) {
+          res.send({ error });
+        } else {
+          console.log(data);
+          const { name, country, region } = data.location;
+          const {
+            weather_descriptions = weather_descriptions[0],
+            temperature,
+            feelslike,
+          } = data.current;
+
+          res.send({
+            "Search term": req.query.address,
+            "Coordinate found according to search term": `${latitud},${longitud}`,
+            "Return location by mapbox according to the coordinates found":
+              localidad,
+            "Return location according to the coordinates sent to weatherstack.com": `${name}, ${region}, ${country}`,
+            "Weather description": `${weather_descriptions}`,
+            "Actual Temperature": `${temperature}º grados centígrados`,
+            "Thermal sensation": `${feelslike}º grados centígrados`,
+          });
+        }
+      });
+    }
+  });
 });
 
 //------------------------------------------------------------------------
@@ -96,7 +131,7 @@ app.get("*", (req, res) => {
 });
 
 //------------------------------------------------------------------------
-
-app.listen(PORT || 3000, () => {
-  console.log(`Server running! at port ${ PORT }`);
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Server running! at port ${process.env.PORT}`);
 });
+console.log(process.env);

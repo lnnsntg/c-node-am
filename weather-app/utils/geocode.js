@@ -27,14 +27,11 @@ const geocode = (address) => {
         }
         else {
             console.log("Termino de la busqueda: ", address)
-            const place = data.place_name;
-            const dataMapLat = data.center[1];
-            const dataMapLon = data.center[0];
-            console.log("Localización encontrada: ", place);
+            console.log("Localización encontrada: ", data.place_name);
             console.log("Obteniendo coordenadas de sitio... ", );
-            console.log("LATITUD", dataMapLat);
-            console.log("LONGITUD", dataMapLon);
-            const coordenadas = (`${dataMapLat},${dataMapLon}`)
+            console.log("LATITUD", data.center[1]);
+            console.log("LONGITUD", data.center[0]);
+            const coordenadas = (`${data.center[1]},${data.center[0]}`)
             console.log("Enviando coordenadas a API weatherstack.com");
             forecast(coordenadas)
         }        

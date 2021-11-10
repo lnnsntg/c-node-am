@@ -1,34 +1,34 @@
-* {
-}
 body {
   margin: 0 auto;
   color: #333333;
   font-family: arial;
-  padding: 0 16px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   background-color: rgb(230, 180, 56);
 }
 .main-content {
+  min-width: 380px;
+  margin: 0 auto;
   flex-grow: 1;
-  border-bottom: 1px solid white;
 }
 .nom_img {
   color: rgb(107, 107, 107);
   font-weight: bold;
 }
 footer {
+  text-align: center;
   color: lightslategray;
   margin-top: 16px 0;
   padding: 1rem;
+  border-top: 1px solid white;
 }
 header {
   margin-top: 16px;
   margin-bottom: 2rem;
 }
 h1 {
-  font-size: 64px;
+  font-size: 3.5rem;
   margin-bottom: 16px;
 }
 header a {
@@ -40,24 +40,34 @@ nav {
   font-size: 2rem;
 }
 ul {
+  padding: 0rem;
+  text-align: initial;
   margin-top: 3rem;
+  list-style-type: none;
+}
+ul li {
+  background: #ffba3a;
+  margin: 5px 0;
+  padding: 0.5rem;
 }
 .portrait {
-  width: 250px;
-  margin-bottom: 1rem;
+  width: 320px;
 }
 form {
   margin: 1rem auto;
 }
 input {
-  border: 1px solid #ccc;
-  padding: 8px;
+  border: 1px solid #888888;
+  padding: 9px;
 }
 button {
   cursor: pointer;
-  border: 1px solid #888888;
   background-color: #888888;
   padding: 8px;
   color: white;
   font-weight: bold;
 }
+
+
+
+

@@ -4,3 +4,4 @@ weather-app/wheatherstack.txt
 weather-app/node_modules
 web-server/node_modules
 .env
+node_modules

@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lenin Santiago",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^4.1.4"
+  }
 }

@@ -5,24 +5,124 @@ const { MongoClient, ObjectId } = require("mongodb");
 const url = "mongodb://127.0.0.1:27017";
 //const id = new ObjectId();
 const client = new MongoClient(url);
-const dbName = "task-manager";
-const db = client.db(dbName);
+//const dbName = "myProject";
+// const db = client.db(dbName);
+
+//---------------------------------------------------------------------
+//                    DELETE                    <<<<<<<<<<
+
+async function erase() {
+  const dbName = "myProject";
+  const db = client.db(dbName);
+  try {
+    await client
+      .connect()
+      .then(() => console.log("Connected successfully to server"));
+  } catch (error) {
+    console.log("Failed connection");
+    return;
+  }
+
+  try {
+    await db
+      .collection("documents")
+      .deleteMany({ a: 3 })
+      .then((deleteCout) => {
+        console.log(deleteCout);
+      });
+  } catch (error) {
+    console.log("Can not erase fields");
+  } finally {
+    await client.close();
+  }
+}
+erase();
 
 //---------------------------------------------------------------------
 
-// async function insertar() {
-//     try {
-//         await client
-//             .connect()
-//             .then(() => console.log("Connected successfully to server"));
-//     } catch (error) {
-//         console.log("Failed connection");
-//         return
-//     }
+// async function main() {
+//   const dbName = 'myProject';
+//   // Use connect method to connect to the server
+//   await client.connect();
+//   console.log('Connected successfully to server');
+//   const db = client.db(dbName);
+//   const collection = db.collection('documents');
 
+//   // the following code examples can be pasted here...
+//   const insertResult = await collection.insertMany([{ a: 1 }, { a: 2 }, { a: 3 }]);
+//   console.log('Inserted documents =>', insertResult);
+
+//   return 'done.';
+// }
+
+// main()
+//   .then(console.log)
+//   .catch(console.error)
+//   .finally(() => client.close());
 
 //---------------------------------------------------------------------
 
+// client
+//   .connect()
+//   .then(
+//     () => console.log("Connected successfully to server"),
+//     db
+//       .collection("users")
+//       .updateOne(
+//         { _id: ObjectId("619089649d1536266015f331") },
+//         {
+//           $set: {
+//             age: 36,
+//           },
+//         }
+//       )
+//       .then((res) => {
+//         console.log("Successful fields insertion");
+//         console.log(res);
+//         client.close();
+//       })
+//       .catch((error) => {
+//         console.log("Unable to insert user");
+//       })
+//       .finally(client.close())
+//   )
+//   .catch((error) => {
+//     console.log("Failed connection");
+//   });
+
+// async function update() {
+//   try {
+//     await client
+//       .connect()
+//       .then(() => console.log("Connected successfully to server"));
+//   } catch (error) {
+//     console.log("Failed connection");
+//     return;
+//   }
+//   try {
+//     await db
+//       .collection("users")
+//       .updateOne(
+//         { _id: ObjectId("619089649d1536266015f331") },
+//         {
+//           $set: {
+//             age: 37
+//           },
+//         }
+//       )
+//       .then((res) => {
+//         console.log("Successful fields insertion");
+//         console.log(res.upsertedId);
+//       });
+//   } catch (error) {
+//     console.log("Unable to insert user");
+//   } finally {
+//     await client.close();
+//   }
+// }
+// update();
+
+//---------------------------------------------------------------------
 
 // async function insertar() {
 //     try {
@@ -59,32 +159,7 @@ const db = client.db(dbName);
 // }
 // insertar();
 
-
 //---------------------------------------------------------------------
-
-/*
-async function insertar3() {
-    try {
-        await client
-            .connect()
-            .then(() => console.log("Connected successfully to server"));
-    } catch (error) {
-        console.log("Failed connection");
-        return
-    }
-    try {
-         db.collection("users")
-            .insertOne({name: 'Lenin', age: 48})
-            .then((resp) => {
-                console.log("Successful fields insertion");
-                console.log(resp.insertedId);
-            });
-    } catch (error) {
-        console.log("Unable to insert task");
-    }
-}
-insertar3();
- */
 
 //---------------------------------------------------------------------
 
@@ -118,4 +193,3 @@ insertar3();
 //   }
 // }
 // main();
-

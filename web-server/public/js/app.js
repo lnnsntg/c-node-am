@@ -13,6 +13,9 @@ function launchRocket(location) {
             if (data.error) {
                 messageOne.textContent = data.error
             } else {
+                console.log(Object.keys(data));
+                console.log(Object.values(data));
+                console.log(data);
                 messageOne.textContent = ""
                 messageTwo.innerHTML = `
                 <li>Search term: ${ data["Search term"] } </li>

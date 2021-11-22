@@ -31,8 +31,8 @@ const userSchema = new mongoose.Schema({
                 throw new Error("The password can not contain 'password'")
             }
             if (!validator.isLength(value, {
-                    min: 8
-                })) {
+                min: 8
+            })) {
                 throw new Error("The password must have a minimum of 6 characters")
             }
         }

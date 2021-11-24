@@ -1,7 +1,7 @@
 const express = require('express');
-const { connect, disconnect } = require("../db/mongoose");
-const User = require("../models/user");
 const router = new express.Router();
+const User = require("../models/user");
+const { connect, disconnect } = require("../db/mongoose");
 
 //----------------------------------------------------------
 

@@ -13,9 +13,12 @@ app.use(taskRouter)
 
 const myfunction = async () => {
     const password = "Red12345!"
+    const pass2= "Red12345!"
     const hashedPassword = await bcrypt.hash(password, 8)
+    const hashed2 = await bcrypt.hash(pass2,8)
     console.log(password);
     console.log(hashedPassword);
+    console.log(hashed2);
     isMatch = await bcrypt.compare(password, hashedPassword)
     console.log(isMatch);
 }

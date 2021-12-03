@@ -1,7 +1,7 @@
-const express = require('express')
+const express = require('express');
 const { connect, disconnect } = require("../db/mongoose");
 const Task = require("../models/task");
-const router = new express.Router()
+const router = new express.Router();
 
 router.post("/tasks", async (req, res) => {
     const task = new Task(req.body);
@@ -60,13 +60,16 @@ router.patch("/tasks/:id", async (req, res) => {
         return res.status(404).send({ error: 'Invalid updates!' });
     }
     try {
-        const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true,
-        });
+        // const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+        //     new: true,
+        //     runValidators: true,
+        // });
+        const task = await Task.findById(req.params.id);
         if (!task) {
             return res.status(404).send();
         }
+        updates.forEach(item => task[item] = req.body[item]);
+        await task.save();
         res.send(task);
     } catch (error) {
         res.status(400).send(error);
@@ -115,4 +118,4 @@ router.delete('/tasks/:id', async (req, res) => {
 
 
 
-module.exports = router
+module.exports = router;

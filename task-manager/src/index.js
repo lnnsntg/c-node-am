@@ -1,5 +1,4 @@
 const express = require("express");
-const bcrypt = require('bcryptjs')
 const userRouter = require("./routers/user")
 const taskRouter = require("./routers/task")
 
@@ -10,7 +9,7 @@ app.use(userRouter)
 app.use(taskRouter)
 
 //----------------------------------------------------------
-
+/* 
 const myfunction = async () => {
     const password = "Red12345!"
     const hashedPassword = await bcrypt.hash(password, 8)
@@ -20,6 +19,7 @@ const myfunction = async () => {
     console.log(isMatch);
 }
 myfunction()
+ */
 //----------------------------------------------------------
 
 app.listen(port, () => {

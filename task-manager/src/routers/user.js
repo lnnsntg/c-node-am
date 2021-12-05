@@ -5,6 +5,25 @@ const { connect, disconnect } = require("../db/mongoose");
 
 //----------------------------------------------------------
 
+router.post("/users/login", async (req, res) => {
+    await connect();
+    try {
+        const user = await User.findByCredentials(req.body.email, req.body.password);
+        res.send(user)
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(error.message)
+
+    }
+    await disconnect();
+});  
+
+//----------------------------------------------------------
+
+router.post()
+
+//----------------------------------------------------------
+
 router.post("/users", async (req, res) => {
     const user = new User(req.body);
     await connect();
@@ -59,7 +78,7 @@ router.patch("/users/:id", async (req, res) => {
     const isValidOperacion = updates.every((updates) => {
         return allowedUpdate.includes(updates);
     });
-    console.log(isValidOperacion);
+    console.log("CLG IN ROUTERS/USER.JS FUNCTION ROUTER.PATCH", isValidOperacion);
     if (!isValidOperacion) {
         return res.status(404).send({ error: 'Invalid updates!' });
     }
@@ -68,9 +87,9 @@ router.patch("/users/:id", async (req, res) => {
         //     new: true,
         //     runValidators: true,
         // });
-        const user = await User.findById(req.params.id)
-        updates.forEach((item) => user[item] = req.body[item])
-        await user.save()
+        const user = await User.findById(req.params.id);
+        updates.forEach((item) => user[item] = req.body[item]);
+        await user.save();
         if (!user) {
             return res.status(404).send();
         }

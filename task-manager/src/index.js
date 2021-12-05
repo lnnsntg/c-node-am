@@ -1,4 +1,5 @@
 const express = require("express");
+const jwt = require('jsonwebtoken')
 const userRouter = require("./routers/user")
 const taskRouter = require("./routers/task")
 
@@ -9,17 +10,11 @@ app.use(userRouter)
 app.use(taskRouter)
 
 //----------------------------------------------------------
-/* 
-const myfunction = async () => {
-    const password = "Red12345!"
-    const hashedPassword = await bcrypt.hash(password, 8)
-    console.log(password);
-    console.log(hashedPassword);
-    isMatch = await bcrypt.compare(password, hashedPassword)
-    console.log(isMatch);
+
+const myFunction = async ( ) => {
+
 }
-myfunction()
- */
+
 //----------------------------------------------------------
 
 app.listen(port, () => {

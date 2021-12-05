@@ -9,18 +9,22 @@ router.post("/users/login", async (req, res) => {
     await connect();
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password);
-        res.send(user)
+        const token = await user.generateAuthToken();
+        console.log('Clg in router.post users/login', user, token);
+        console.log(typeof user);
+        console.log(typeof token);
+        res.send({ user, token });
     } catch (error) {
         console.log(error);
-        res.status(400).send(error.message)
+        res.status(400).send(error.message);
 
     }
     await disconnect();
-});  
+});
 
 //----------------------------------------------------------
 
-router.post()
+// router.post()
 
 //----------------------------------------------------------
 

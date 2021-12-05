@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
     name: {
@@ -48,6 +49,14 @@ const userSchema = new mongoose.Schema({
         }
     }
 });
+
+userSchema.methods.generateAuthToken = async function () {
+    const user = this;
+    console.log("CLG in statics.generateAuthToken", user);
+    const token = jwt.sign({ _id: user._id.toString() }, 'thisismynewcourse', { expiresIn: '7 days' });
+    return token;
+};
+
 
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email });

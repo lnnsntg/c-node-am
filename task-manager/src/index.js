@@ -11,9 +11,13 @@ app.use(taskRouter)
 
 //----------------------------------------------------------
 
-const myFunction = async ( ) => {
-
-}
+// const myFunction = async ( ) => {
+//     const token = jwt.sign({_id: 'abc123'}, 'thisismynewcourse', {expiresIn: '7 days'});
+//     console.log(token);
+//     const verifyToken = jwt.verify(token, 'thisismynewcourse')
+//     console.log(verifyToken);
+// }
+// myFunction()
 
 //----------------------------------------------------------
 

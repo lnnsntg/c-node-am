@@ -1,13 +1,26 @@
 const express = require("express");
-const jwt = require('jsonwebtoken')
-const userRouter = require("./routers/user")
-const taskRouter = require("./routers/task")
+const userRouter = require("./routers/user");
+const taskRouter = require("./routers/task");
 
 const app = express();
 const port = process.env.PORT || 3000;
+/* 
+app.use((req, res, next) => {
+    if (req.method === 'GET') {
+        res.send("GET request are disabled");
+    } else {
+        next();
+    }
+});
+ */
+
+app.use((req, res, next) => {
+    res.status(503).send("We are doing maintenance, or not. Sorry for the inconvenience, or not.");
+});
+
 app.use(express.json());
-app.use(userRouter)
-app.use(taskRouter)
+app.use(userRouter);
+app.use(taskRouter);
 
 //----------------------------------------------------------
 

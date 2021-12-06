@@ -10,35 +10,29 @@ router.post("/users/login", async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password);
         const token = await user.generateAuthToken();
-        console.log('Clg in router.post users/login', user, token);
-        console.log(typeof user);
-        console.log(typeof token);
         res.send({ user, token });
     } catch (error) {
         console.log(error);
         res.status(400).send(error.message);
-
     }
     await disconnect();
 });
 
 //----------------------------------------------------------
 
-// router.post()
-
-//----------------------------------------------------------
-
 router.post("/users", async (req, res) => {
     const user = new User(req.body);
     await connect();
-    await user
-        .save()
-        .then(() => {
-            res.status(201).send(user);
-        })
-        .catch((error) => {
-            res.status(400).send(error.message);
-        });
+    try {
+        await user.save()
+            .then(async user => {
+                const token = await user.generateAuthToken();
+                res.status(201).send({ user, token });
+            });
+    }
+    catch (error) {
+        res.status(400).send(error);
+    }
     await disconnect();
 });
 

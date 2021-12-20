@@ -5,7 +5,6 @@ const router = new express.Router();
 
 router.post("/tasks", async (req, res) => {
     const task = new Task(req.body);
-    await connect();
     await task
         .save()
         .then(() => {
@@ -14,13 +13,11 @@ router.post("/tasks", async (req, res) => {
         .catch((error) => {
             res.status(400).send(error.message);
         });
-    await disconnect();
 });
 
 //----------------------------------------------------------
 
 router.get("/tasks", async (req, res) => {
-    await connect();
     await Task.find()
         .then((d) => {
             res.send(d);
@@ -28,14 +25,12 @@ router.get("/tasks", async (req, res) => {
         .catch((error) => {
             res.status(500).send(error.message);
         });
-    await disconnect();
 });
 
 //----------------------------------------------------------
 
 router.get("/tasks/:id", async (req, res) => {
     const _id = req.params.id;
-    await connect();
     await Task.findById(_id)
         .then((task) => {
             if (!task) {
@@ -46,13 +41,11 @@ router.get("/tasks/:id", async (req, res) => {
         .catch((error) => {
             res.status(404).send(error.message);
         });
-    await disconnect();
 });
 
 //----------------------------------------------------------
 
 router.patch("/tasks/:id", async (req, res) => {
-    await connect();
     const updates = Object.keys(req.body);
     const allowedUpdate = ['description', 'completed'];
     const isValidOperacion = updates.every((item) => allowedUpdate.includes(item));
@@ -74,14 +67,12 @@ router.patch("/tasks/:id", async (req, res) => {
     } catch (error) {
         res.status(400).send(error);
     }
-    disconnect();
 });
 
 //----------------------------------------------------------
 
 router.delete('/tasks/:id', async (req, res) => {
     const id = req.params.id;
-    await connect();
 
     await Task.findOneAndDelete({ _id: id })
         .then((task) => {
@@ -94,13 +85,13 @@ router.delete('/tasks/:id', async (req, res) => {
         .catch((error) => {
             res.status(500).send(error);
         });
-    await disconnect();
 });
+
+module.exports = router;
 
 /* 
 router.delete('/tasks/:id', async (req, res) => {
     const id = req.params.id;
-    await connect();
     try {
         const task = await Task.findOneAndDelete({ _id: id });
         if (!task) {
@@ -112,10 +103,5 @@ router.delete('/tasks/:id', async (req, res) => {
     } catch (error) {
         res.status(500).send(error);
     }
-    await disconnect();
 });
  */
-
-
-
-module.exports = router;
